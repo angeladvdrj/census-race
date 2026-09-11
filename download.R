@@ -26,49 +26,46 @@ race_vars_2000 <- c(
   asian    = "P004008"
 )
 
-# Download 2020 county data with geometries
-fl_2020 <- get_decennial(
-  geography = "county",
+# Download 2020 state data with geometries
+us_2020 <- get_decennial(
+  geography = "state",
   variables = race_vars_2020,
   summary_var = "P2_001N",
-  state = "FL",
   year = 2020,
   geometry = TRUE
 ) |> 
   mutate(year = 2020)
 
-# Download 2010 county data
-fl_2010 <- get_decennial(
-  geography = "county",
+# Download 2010 state data
+us_2010 <- get_decennial(
+  geography = "state",
   variables = race_vars_2010,
   summary_var = "P005001",
-  state = "FL",
   year = 2010
 ) |> 
   mutate(year = 2010)
 
-# Download 2000 county data
-fl_2000 <- get_decennial(
-  geography = "county",
+# Download 2000 state data
+us_2000 <- get_decennial(
+  geography = "state",
   variables = race_vars_2000,
   summary_var = "P004001",
-  state = "FL",
   year = 2000
 ) |> 
   mutate(year = 2000)
 
-# Save county geometries for mapping
-fl_geo <- fl_2020 |> 
+# Save state geometries for mapping
+us_geo <- us_2020 |> 
   filter(variable == "hispanic") |> 
   select(GEOID, NAME)
 
-write_rds(fl_geo, "data/fl_geo.rds")
+write_rds(us_geo, "data/us_geo.rds")
 
 # Combine 2000, 2010, and 2020 census data
-fl_race_all <- bind_rows(
-  fl_2000,
-  fl_2010,
-  st_drop_geometry(fl_2020)
+us_race_all <- bind_rows(
+  us_2000,
+  us_2010,
+  st_drop_geometry(us_2020)
 )
 
-write_rds(fl_race_all, "data/fl_race_2000_2020.rds")
+write_rds(us_race_all, "data/us_race_2000_2020.rds")

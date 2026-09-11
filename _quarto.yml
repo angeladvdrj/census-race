@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Florida Census"
+  title: "US Census"
   navbar:
     left:
       - href: index.qmd
