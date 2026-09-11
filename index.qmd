@@ -85,6 +85,7 @@ Use the radio buttons in the upper right to toggle which demographic shift color
 #| echo: false
 
 leaflet(combined_map, width = "100%", height = "540px") |>
+  setView(lng = -98.5, lat = 39.8, zoom = 4) |>
   addTiles() |>
   addPolygons(
     group = "Hispanic Change",
@@ -109,6 +110,26 @@ leaflet(combined_map, width = "100%", height = "540px") |>
     fillColor = ~pal_asian(diff_asian),
     fillOpacity = 0.7, weight = 1, color = "white",
     label = labels
+  ) |>
+  addLegend(
+    pal = pal_hisp, values = ~diff_hisp,
+    group = "Hispanic Change", position = "bottomright",
+    title = "Hispanic (pts)"
+  ) |>
+  addLegend(
+    pal = pal_white, values = ~diff_white,
+    group = "White Change", position = "bottomright",
+    title = "White (pts)"
+  ) |>
+  addLegend(
+    pal = pal_black, values = ~diff_black,
+    group = "Black Change", position = "bottomright",
+    title = "Black (pts)"
+  ) |>
+  addLegend(
+    pal = pal_asian, values = ~diff_asian,
+    group = "Asian Change", position = "bottomright",
+    title = "Asian (pts)"
   ) |>
   addLayersControl(
     baseGroups = c("Hispanic Change", "White Change", "Black Change", "Asian Change"),
